@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myFirstApp">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="angular.min.js"></script>
@@ -7,14 +7,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angular</title>
 </head>
+<!--
+    First App,
+    value of input attribute should be equal to
+    something on scope, here 'name' 
 <body>
     <h1>My App</h1>
     <h2>( ng-app, ng-controller, ng-model )</h2>
     <div ng-controller="myFirstController">
-        <!-- value of input attribute should be equal to 
-            something on scope, here 'name' -->
         <input type="text" ng-model="name">
         <p>Your input is: {{name}}</p>
+    </div>
+</body> 
+-->
+<body ng-app="nameCalculator">
+    <h1>Name Calculator</h1>
+    <h2> (ng-keyup) </h2>
+    <div ng-controller="nameCalculatorController">
+        <div>Your Name:
+            <input type="text" 
+            ng-model="fullName"
+            ng-keyup="displayNumeric();">
+        </div>
+        <div>Total Numeric value of your name is: {{totalNameValue}}</div>
     </div>
 </body>
 <script src="app.js"></script>
