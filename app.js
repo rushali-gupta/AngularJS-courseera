@@ -20,6 +20,8 @@
     
     */
 
+    /*
+    Name Calculator App
     angular.module("nameCalculator",[])
     .controller("nameCalculatorController", function ($scope){
         $scope.fullName= "";
@@ -38,5 +40,22 @@
             return totalStringValue;
         }
     });
+
+    */
+
+    angular.module("DIApp",[])
+    .controller("DIController", DIController);
+    //to protect from data minification.
+    DIController.inject = ['$scope','$filter'];
+    function DIController($scope, $filter) {
+        //$filter is used for filtering/formatting the data
+        //which is eventually displayed to the user.
+        $scope.name="Rushali";
+        $scope.upper = function (){
+            let upCase = $filter('uppercase');
+            $scope.name = upCase($scope.name);
+        };
+        
+    }
 
 })();
