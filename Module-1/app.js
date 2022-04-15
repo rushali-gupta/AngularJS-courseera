@@ -6,7 +6,7 @@
     /*
     First app
     // in angular object, module method expects first parameter as our app name,
-    // second parameter is aray of dependencies,
+    // second parameter is array of dependencies,
     // in this case we don't have any dependencies so pass an empty array
     
     angular.module('myFirstApp', [])
@@ -16,7 +16,7 @@
     }); 
     
     // the way we define ViewModel of view,
-    // takes Controller name and function that defines functionality for the controller as second parameter.
+    // takes Controller name and function that defines functionality for the controller as parameters.
     
     */
 
