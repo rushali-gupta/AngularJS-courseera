@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="..\Angular-files\angular.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+</head>
+<body ng-app="myApp">
+    <h1>Custom Filters.</h1>
+    <div ng-controller="myController">
+        Original Message : {{sayMessage()}}
+        <br>
+        Modified Message : {{sayLovesMessage()}}
+        <br>
+        TRUTH : {{sayLovesMessage() | truth : 'night' : 'morning' | uppercase}}
+    </div>  
+</body>
+    <script src="app.js"></script>
+</html>
