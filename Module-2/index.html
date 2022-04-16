@@ -20,7 +20,7 @@
 </body> 
 
 -->
-    <body ng-app="DigestCycle">
+    <!-- <body ng-app="DigestCycle">
         <h1>Digest Cycle</h1>
         <div ng-controller="dcController">
             <button ng-click="showNoofWatchers()">
@@ -31,14 +31,58 @@
                 <button ng-click="counter()"> Up Counter</button>
             </div>
             <div>
-                <!-- Watchers are automatically created here! -->
+                Watchers are automatically created here!
                 Once Counter: {{onceCounter}} <br>
                 Up Counter: {{genCounter}}
             </div>
             <div>
-                <!-- another way that creates watchers automatically -->
+                another way that creates watchers automatically
                 <input type="text" ng-model="name">
             </div>
+        </div>
+        
+    </body> -->
+
+    <body ng-app="myApp">
+        <h1>
+            Digest, Apply, Binding, Repeat Directives.
+        </h1>
+        <div ng-controller="ctrl">
+            <button ng-click="showWatchers()"># Watchers</button>
+            <button ng-click="counter()">Up Counter</button>
+            Count: {{count}}
+            <div >
+                <h3>ng-repeat:
+                    <li>behaves like for-each</li>
+                    <li>exposes $index property</li>
+                </h3>
+                <h3>Fruits:</h3>
+                <!-- <ul>
+                    <li ng-repeat ="item in items">{{ item }}</li>
+                </ul> -->
+                <!-- <ul>
+                    <li ng-repeat="item in items2">I have {{item.quantity }} {{ item.name }}s</li>
+                </ul> -->
+                <ul>
+                    <li ng-repeat="item in items2">{{ $index +1 }}. I have {{item.quantity }} {{ item.name }}s</li>
+                </ul>
+                <!-- <input type="text" ng-model="items2[0].quantity"> -->
+                <input type="text" ng-model="fruit" placeholder="Fruit">
+                <input type="text" ng-model="qty" placeholder="Quantity">
+                <button ng-click="addFruit()">Add item</button>
+            </div>
+        </div>
+        <div>
+            Two way binding: "ng-model" [listener as well as watcher]. <br>
+            One way binding: interpolation [can be updated only through one way, not client side]. <br>
+            One time binding: " ::fullName " [Gets updated only one time]. <br>
+        </div>
+        <br>
+        <div ng-controller="filteredRepeat">
+            <input type="text" ng-model="search">
+            <ul>
+                <li ng-repeat="fruit in fruitList | filter : search"> {{ fruit }} </li>
+            </ul>
         </div>
         
     </body>

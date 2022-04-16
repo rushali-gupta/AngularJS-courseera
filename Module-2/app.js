@@ -38,7 +38,7 @@
     }
 
     */
-    
+    /*
     // Digest Cycle
    angular.module('DigestCycle',[])
    .controller('dcController',dcController);
@@ -79,4 +79,68 @@
     });
 
    }
+   */
+   let items1= ['apple','orange','banana','papaya'];
+    let items2=[
+        {
+            name: 'apple',
+            quantity: '2'
+        },
+        {
+            name: 'orange',
+            quantity: '200'
+        },
+        {
+            name: 'banana',
+            quantity: '212'
+        },
+        {
+            name: 'papaya',
+            quantity: '434'
+        }
+    ];
+    let fruitList= ['apple','orange','banana','papaya','mango','pineapple','jack fruit'
+    ,'dragon fruit','grapes','blue berries','straw berries']; 
+   let app=angular.module('myApp',[]);
+   app.controller('ctrl',ctrl);
+   app.controller('filteredRepeat',filteredRepeat);
+   ctrl.inject=['$scope'];
+   function ctrl($scope){
+       $scope.count=0;
+       //method 1
+    //    $scope.counter = function(){
+    //        setTimeout(function(){
+    //         $scope.count++;
+    //         console.log('Incremented');
+    //         $scope.$digest();
+    //        },2000);       
+        
+    //method 2
+    $scope.counter = function(){
+            setTimeout(function(){
+                $scope.$apply(function(){
+                    $scope.count++;
+                    console.log('Incremented');
+                })
+            },2000);
+
+    }
+    $scope.showWatchers = function(){
+        console.log($scope.$$watchersCount);
+    };
+
+    $scope.items1=items1;
+    $scope.items2=items2;
+    $scope.addFruit = function(){
+        let newFruit={
+            name: $scope.fruit,
+            quantity: $scope.qty
+        };
+        items2.push(newFruit);
+    }
+   }
+   filteredRepeat.$inject=['$scope'];
+   function filteredRepeat($scope){
+       $scope.fruitList= fruitList;
+    }
 })();
