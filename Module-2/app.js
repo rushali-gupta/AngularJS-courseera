@@ -1,6 +1,9 @@
 (function (){
     'use strict';
 
+    /*
+    //Custom Filters
+
     angular.module('myApp',[])
     .controller('myController', msgController)
     .filter('loves',lovesFilterFactory)
@@ -33,4 +36,47 @@
             return msg;
         };
     }
+
+    */
+    
+    // Digest Cycle
+   angular.module('DigestCycle',[])
+   .controller('dcController',dcController);
+
+   dcController.$inject = ['$scope'];
+   function dcController($scope){
+       $scope.onceCounter=0;
+       $scope.genCounter=0;
+       $scope.name='Rushali';
+
+       $scope.showNoofWatchers = function(){
+           console.log('No.of Watchers: ', $scope.$$watchersCount);
+       };
+
+       $scope.countOnce = function(){
+           $scope.onceCounter = 1;
+       };
+
+    //    //bad practice
+    //    $scope.$watch('onceCounter', function(newValue,oldValue){
+    //        console.log('Old Value: ', oldValue);
+    //        console.log('New Value: ',  newValue);
+    //    });
+
+       $scope.counter =function(){
+           $scope.genCounter ++;      
+       };
+
+    //    //bad practice
+    //    $scope.$watch('genCounter', function(newValue,oldValue){
+    //     console.log('Old Value: ', oldValue);
+    //     console.log('New Value: ',  newValue);
+    // });
+
+    //to cross-check dirty checking concept,
+    $scope.$watch(function(){
+        console.log('Digest Loop Fired');
+    });
+
+   }
 })();

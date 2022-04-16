@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AngularJS</title>
 </head>
-<body ng-app="myApp">
+<!-- 
+    <body ng-app="myApp">
     <h1>Custom Filters.</h1>
     <div ng-controller="myController">
         Original Message : {{sayMessage()}}
@@ -16,6 +17,30 @@
         <br>
         TRUTH : {{sayLovesMessage() | truth : 'night' : 'morning' | uppercase}}
     </div>  
-</body>
+</body> 
+
+-->
+    <body ng-app="DigestCycle">
+        <h1>Digest Cycle</h1>
+        <div ng-controller="dcController">
+            <button ng-click="showNoofWatchers()">
+                log # of watchers</button>
+            <br>
+            <div>
+                <button ng-click="countOnce()"> Up Once Counter</button>
+                <button ng-click="counter()"> Up Counter</button>
+            </div>
+            <div>
+                <!-- Watchers are automatically created here! -->
+                Once Counter: {{onceCounter}} <br>
+                Up Counter: {{genCounter}}
+            </div>
+            <div>
+                <!-- another way that creates watchers automatically -->
+                <input type="text" ng-model="name">
+            </div>
+        </div>
+        
+    </body>
     <script src="app.js"></script>
 </html>
