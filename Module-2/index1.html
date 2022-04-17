@@ -40,11 +40,11 @@
         
     </body> -->
 
-    <body ng-app="CustomServicesApp">
+    <!-- <body ng-app="CustomServicesApp">
         <h1>Custom Service</h1>
         <h3>Controllers are not supposed to:
         </h3>
-        <li>Hnadle Bussiness logic</li>
+        <li>Handle Bussiness logic</li>
         <li>Code Sharing (re-use code btw controllers)</li>
         <li>Share data across components (use Custom Service instead)</li>
         <br>
@@ -64,6 +64,42 @@
             </ol>
         </div>
     
+    </body> -->
+
+
+    <body ng-app="CustomSevicesFactory">
+        <!-- List1 with undefined no.of Items -->
+        <div ng-controller="AddItemController1 as list1">
+            <h2>Shopping List 1 with Unlimited No.of items</h2>
+            <input type="text" placeholder="Name" ng-model="list1.itemName">
+            <input type="text" placeholder="Quantity" ng-model="list1.itemQuantity">
+            <button ng-click="list1.addItem()">Add Item</button>
+            <ol>
+                <li ng-repeat="item in list1.list">
+                    {{ item.quantity }} of {{ item.name }}
+                    <button ng-click="list1.removeItem($index)">Remove Item</button>
+                    <br>
+                </li>
+            </ol>
+            <div> Error: {{ list1.errorMessage }} </div>
+        </div>
+
+        <!-- List2 with max of 3 Items -->
+        <div ng-controller="AddItemController2 as list2">
+            <h2>Shopping List 2 with Max of 2 items</h2>
+            <input type="text" placeholder="Name" ng-model="list2.itemName">
+            <input type="text" placeholder="Quantity" ng-model="list2.itemQuantity">
+            <button ng-click="list2.addItem()">Add Item</button>
+            <ol>
+                <li ng-repeat="item in list2.list">
+                    {{ item.quantity }} of {{ item.name }}
+                    <button ng-click="list2.removeItem($index)">Remove Item</button>
+                    <br>
+                </li>
+            </ol>
+            <div> Error: {{ list2.errorMessage }} </div>
+        </div>
+        
     </body>
     <script src="app1.js"></script>
 </html>

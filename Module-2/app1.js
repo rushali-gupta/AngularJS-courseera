@@ -45,41 +45,116 @@
     //     console.log('ChildController2 $scope: ',$scope);
     // }
 
-    angular.module('CustomServicesApp',[])
-    .controller('AddItemController',AddItemController)
-    .controller('ShowItemController',ShowItemController)
-    .service('ItemsListService',ItemsListService);
+    // angular.module('CustomServicesApp',[])
+    // .controller('AddItemController',AddItemController)
+    // .controller('ShowItemController',ShowItemController)
+    // .service('ItemsListService',ItemsListService);
 
-    AddItemController.$inject = ['ItemsListService'];
-    function AddItemController(ItemsListService){
-        let ItemAdder=this;
-        ItemAdder.itemName="";
-        ItemAdder.itemQuantity="";
-        ItemAdder.addItem = function(){
-            ItemsListService.addItem(ItemAdder.itemName,ItemAdder.itemQuantity);
-            ItemAdder.itemName="";
-            ItemAdder.itemQuantity="";
+    // AddItemController.$inject = ['ItemsListService'];
+    // function AddItemController(ItemsListService){
+    //     let ItemAdder=this;
+    //     ItemAdder.itemName="";
+    //     ItemAdder.itemQuantity="";
+    //     ItemAdder.addItem = function(){
+    //         ItemsListService.addItem(ItemAdder.itemName,ItemAdder.itemQuantity);
+    //         ItemAdder.itemName="";
+    //         ItemAdder.itemQuantity="";
+    //     };
+    // }
+
+    // ShowItemController.$inject = ['ItemsListService'];
+    // function ShowItemController(ItemsListService){
+    //     let ShowItem=this;
+    //     ShowItem.list = ItemsListService.getItems(); 
+    //     ShowItem.removeItem = function(index){
+    //         ItemsListService.removeItem(index);
+    //     }
+    // }
+
+    // function ItemsListService(){
+    //     let service = this;
+    //     let items=[];
+    //     service.addItem = function(itemName,itemQuantity){
+    //         let newItem={
+    //             name: itemName,
+    //             quantity: itemQuantity
+    //         };
+    //         items.push(newItem);
+    //     };
+    //     service.getItems = function() {
+    //         return items;
+    //     };
+    //     service.removeItem = function(index){
+    //         items.splice(index,1);
+    //     };
+    // }
+
+    angular.module('CustomSevicesFactory',[])
+    .controller('AddItemController1',AddItemController1)
+    .controller('AddItemController2',AddItemController2)
+    .factory('ShoppingListFactory',ShoppingListFactory);
+
+    AddItemController1.$inject = ['ShoppingListFactory'];
+    function AddItemController1(ShoppingListFactory){
+        let list1=this;
+        list1.itemName="";
+        list1.itemQuantity="";
+        let shoppingList=ShoppingListFactory(); //undefined maxItems service is instantiated.
+        list1.addItem = function(){
+            try{
+                shoppingList.addItem(list1.itemName,list1.itemQuantity);
+                list1.itemName="";
+                list1.itemQuantity="";
+            }
+            catch(e){
+                list1.errorMessage= e.message;
+            }
+        };
+        list1.list = shoppingList.getItems(); 
+        list1.removeItem = function(index){
+            shoppingList.removeItem(index);
         };
     }
 
-    ShowItemController.$inject = ['ItemsListService'];
-    function ShowItemController(ItemsListService){
-        let ShowItem=this;
-        ShowItem.list = ItemsListService.getItems(); 
-        ShowItem.removeItem = function(index){
-            ItemsListService.removeItem(index);
-        }
+    AddItemController2.$inject = ['ShoppingListFactory'];
+    function AddItemController2(ShoppingListFactory){
+        let list2=this;
+        list2.itemName="";
+        list2.itemQuantity="";
+        let shoppingList=ShoppingListFactory(2); //undefined maxItems service is instantiated.
+        list2.addItem = function(){
+            try{
+                shoppingList.addItem(list2.itemName,list2.itemQuantity);
+                list2.itemName="";
+                list2.itemQuantity="";
+            }
+            catch(e){
+                list2.errorMessage= e.message;
+                console.log(list2.errorMessage);
+            }
+            
+        };
+        list2.list = shoppingList.getItems(); 
+        list2.removeItem = function(index){
+            shoppingList.removeItem(index);
+        };
     }
 
-    function ItemsListService(){
+    function ShoppingListService(maxItems){
         let service = this;
         let items=[];
         service.addItem = function(itemName,itemQuantity){
-            let newItem={
-                name: itemName,
-                quantity: itemQuantity
-            };
-            items.push(newItem);
+            if(maxItems==undefined ||
+            (items.length<maxItems && maxItems!=undefined)){
+                let newItem={
+                    name: itemName,
+                    quantity: itemQuantity
+                };
+                items.push(newItem);
+            }
+            else{
+                throw new Error("Max items limit (" + maxItems + ") reached");
+            }            
         };
         service.getItems = function() {
             return items;
@@ -87,6 +162,13 @@
         service.removeItem = function(index){
             items.splice(index,1);
         };
+    }
+
+    function ShoppingListFactory(){
+        var factory = function(maxItems){
+            return new ShoppingListService(maxItems);
+        };
+        return factory;
     }
 
 })();
