@@ -43,6 +43,7 @@
 
     */
 
+    //Dependency Injection.
     angular.module("DIApp",[])
     .controller("DIController", DIController);
     //to protect from data minification.
