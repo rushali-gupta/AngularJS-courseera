@@ -89,86 +89,153 @@
     //     };
     // }
 
-    angular.module('CustomSevicesFactory',[])
-    .controller('AddItemController1',AddItemController1)
-    .controller('AddItemController2',AddItemController2)
-    .factory('ShoppingListFactory',ShoppingListFactory);
+    // angular.module('CustomSevicesFactory',[])
+    // .controller('AddItemController1',AddItemController1)
+    // .controller('AddItemController2',AddItemController2)
+    // .factory('ShoppingListFactory',ShoppingListFactory);
 
-    AddItemController1.$inject = ['ShoppingListFactory'];
-    function AddItemController1(ShoppingListFactory){
+    // AddItemController1.$inject = ['ShoppingListFactory'];
+    // function AddItemController1(ShoppingListFactory){
+    //     let list1=this;
+    //     list1.itemName="";
+    //     list1.itemQuantity="";
+    //     let shoppingList=ShoppingListFactory(); //undefined maxItems service is instantiated.
+    //     list1.addItem = function(){
+    //         try{
+    //             shoppingList.addItem(list1.itemName,list1.itemQuantity);
+    //             list1.itemName="";
+    //             list1.itemQuantity="";
+    //         }
+    //         catch(e){
+    //             list1.errorMessage= e.message;
+    //         }
+    //     };
+    //     list1.list = shoppingList.getItems(); 
+    //     list1.removeItem = function(index){
+    //         shoppingList.removeItem(index);
+    //     };
+    // }
+
+    // AddItemController2.$inject = ['ShoppingListFactory'];
+    // function AddItemController2(ShoppingListFactory){
+    //     let list2=this;
+    //     list2.itemName="";
+    //     list2.itemQuantity="";
+    //     let shoppingList=ShoppingListFactory(2); //undefined maxItems service is instantiated.
+    //     list2.addItem = function(){
+    //         try{
+    //             shoppingList.addItem(list2.itemName,list2.itemQuantity);
+    //             list2.itemName="";
+    //             list2.itemQuantity="";
+    //         }
+    //         catch(e){
+    //             list2.errorMessage= e.message;
+    //             console.log(list2.errorMessage);
+    //         }
+            
+    //     };
+    //     list2.list = shoppingList.getItems(); 
+    //     list2.removeItem = function(index){
+    //         shoppingList.removeItem(index);
+    //     };
+    // }
+
+    // function ShoppingListService(maxItems){
+    //     let service = this;
+    //     let items=[];
+    //     service.addItem = function(itemName,itemQuantity){
+    //         if(maxItems==undefined ||
+    //         (items.length<maxItems && maxItems!=undefined)){
+    //             let newItem={
+    //                 name: itemName,
+    //                 quantity: itemQuantity
+    //             };
+    //             items.push(newItem);
+    //         }
+    //         else{
+    //             throw new Error("Max items limit (" + maxItems + ") reached");
+    //         }            
+    //     };
+    //     service.getItems = function() {
+    //         return items;
+    //     };
+    //     service.removeItem = function(index){
+    //         items.splice(index,1);
+    //     };
+    // }
+
+    // function ShoppingListFactory(){
+    //     var factory = function(maxItems){
+    //         return new ShoppingListService(maxItems);
+    //     };
+    //     return factory;
+    // }
+
+    angular.module('CustomServicesProvider',[])
+    .controller('ShoppingListController',ShoppingListController)
+    .provider('ShoppingListService',ShoppingListServiceProvider)
+    .config(config);
+
+    config.$inject=['ShoppingListServiceProvider'];
+    function config(ShoppingListServiceProvider){
+        ShoppingListServiceProvider.defaults.maxItems=2;
+    }
+
+    ShoppingListController.$inject = ['ShoppingListService'];
+    function ShoppingListController(ShoppingListService){
         let list1=this;
         list1.itemName="";
         list1.itemQuantity="";
-        let shoppingList=ShoppingListFactory(); //undefined maxItems service is instantiated.
         list1.addItem = function(){
             try{
-                shoppingList.addItem(list1.itemName,list1.itemQuantity);
+                ShoppingListService.addItem(list1.itemName,list1.itemQuantity);
                 list1.itemName="";
                 list1.itemQuantity="";
             }
-            catch(e){
-                list1.errorMessage= e.message;
+            catch(error){
+                list1.errorMessage = error.message;
             }
         };
-        list1.list = shoppingList.getItems(); 
         list1.removeItem = function(index){
-            shoppingList.removeItem(index);
+            ShoppingListService.removeItem(index);
         };
-    }
-
-    AddItemController2.$inject = ['ShoppingListFactory'];
-    function AddItemController2(ShoppingListFactory){
-        let list2=this;
-        list2.itemName="";
-        list2.itemQuantity="";
-        let shoppingList=ShoppingListFactory(2); //undefined maxItems service is instantiated.
-        list2.addItem = function(){
-            try{
-                shoppingList.addItem(list2.itemName,list2.itemQuantity);
-                list2.itemName="";
-                list2.itemQuantity="";
-            }
-            catch(e){
-                list2.errorMessage= e.message;
-                console.log(list2.errorMessage);
-            }
-            
-        };
-        list2.list = shoppingList.getItems(); 
-        list2.removeItem = function(index){
-            shoppingList.removeItem(index);
-        };
+        list1.showList = ShoppingListService.getItems();
     }
 
     function ShoppingListService(maxItems){
         let service = this;
-        let items=[];
-        service.addItem = function(itemName,itemQuantity){
-            if(maxItems==undefined ||
-            (items.length<maxItems && maxItems!=undefined)){
-                let newItem={
+        let items =[];
+        service.addItem =  function(itemName,itemQuantity){
+            if(maxItems === undefined || (maxItems !== undefined && maxItems > items.length)){
+                let newItem = {
                     name: itemName,
                     quantity: itemQuantity
                 };
                 items.push(newItem);
+                //console.log(items);
             }
             else{
-                throw new Error("Max items limit (" + maxItems + ") reached");
-            }            
-        };
-        service.getItems = function() {
-            return items;
+                throw new Error("Max items limit reached");
+            }
         };
         service.removeItem = function(index){
             items.splice(index,1);
         };
+        service.getItems = function(){
+            return items;
+        };
     }
 
-    function ShoppingListFactory(){
-        var factory = function(maxItems){
-            return new ShoppingListService(maxItems);
+    function ShoppingListServiceProvider(){
+        let provider= this;
+        provider.defaults = {
+            maxItems: 10
         };
-        return factory;
+
+        provider.$get = function(){
+            let service = new ShoppingListService(provider.defaults.maxItems);
+            return service;
+        }
     }
 
 })();
