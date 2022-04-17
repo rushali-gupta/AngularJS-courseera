@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../Angular-files/angular.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+</head>
+<body ng-app="ControllerAsApp">
+    <!-- <div ng-controller="ParentController1">
+        <div ng-controller="ChildController1"></div>
+    </div> -->
+    
+    <h3>Prototypal Inheritance in JS is based on object instances ranther than classes.</h3>
+    <h3>"Controller1 as ctrl", by doing this, we are not defining 
+        properties directly on $scope but to $scope.ctrl property/object. (to avoid masking) 
+    </h3>
+    <li>Property is inherited from parent, looked up through prototype chain</li>
+    <li>Property is local if  it is declared on the child with the same name as the parent and is therefore
+        masking parent's property.
+    </li>
+    <h3>$scope is based on Prototypal Inheritance</h3>
+    <li>
+        Child controller's $scope is inherited from parent controller's $scope.
+    </li>
+    <br>
+    <h4>If we use "Controller as" syntax, i.e., Controller1 as ctrl,
+        ctrl is a reference to 'this', (the instance of Controller1), because .controller treats
+        controller function as function contrustor.
+        this attaches properties to this inside Controller, not $scope, so no masking occurs.
+    </h4>
+    <div ng-controller="ParentController2 as parent">
+        Parent Value: {{parent.value}}
+            <div ng-controller="ChildController2 as child">
+                Child Value: {{child.value}}
+                Parent Value From Child Controller: {{parent.value}}
+            </div>
+    </div>
+    
+</body>
+<script src="app1.js"></script>
+</html>
