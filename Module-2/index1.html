@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <script src="../Angular-files/angular.min.js"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AngularJS</title>
+    </head>
+    <!-- <body ng-app="ControllerAsApp"> -->
+        <!-- <div ng-controller="ParentController1">
+            <div ng-controller="ChildController1"></div>
+        </div> -->
+        
+        <!-- <h3>Prototypal Inheritance in JS is based on object instances ranther than classes.</h3>
+        <h3>"Controller1 as ctrl", by doing this, we are not defining 
+            properties directly on $scope but to $scope.ctrl property/object. (to avoid masking) 
+        </h3>
+        <li>Property is inherited from parent, looked up through prototype chain</li>
+        <li>Property is local if  it is declared on the child with the same name as the parent and is therefore
+            masking parent's property.
+        </li>
+        <h3>$scope is based on Prototypal Inheritance</h3>
+        <li>
+            Child controller's $scope is inherited from parent controller's $scope.
+        </li>
+        <br>
+        <h4>If we use "Controller as" syntax, i.e., Controller1 as ctrl,
+            ctrl is a reference to 'this', (the instance of Controller1), because .controller treats
+            controller function as function contrustor.
+            this attaches properties to this inside Controller, not $scope, so no masking occurs.
+        </h4>
+        <div ng-controller="ParentController2 as parent">
+            Parent Value: {{parent.value}}
+                <div ng-controller="ChildController2 as child">
+                    Child Value: {{child.value}}
+                    Parent Value From Child Controller: {{parent.value}}
+                </div>
+        </div>
+        
+    </body> -->
+
+    <!-- <body ng-app="CustomServicesApp">
+        <h1>Custom Service</h1>
+        <h3>Controllers are not supposed to:
+        </h3>
+        <li>Handle Bussiness logic</li>
+        <li>Code Sharing (re-use code btw controllers)</li>
+        <li>Share data across components (use Custom Service instead)</li>
+        <br>
+        <div ng-controller="AddItemController as ItemAdder">
+            <input type="text" placeholder="Name" ng-model="ItemAdder.itemName">
+            <input type="text" placeholder="Quantity" ng-model="ItemAdder.itemQuantity">
+            <button ng-click="ItemAdder.addItem()">Add Item</button>
+        </div>
+
+        <div ng-controller="ShowItemController as ShowItem">
+            <ol>
+                <li ng-repeat="item in ShowItem.list">
+                    {{ item.quantity }} of {{ item.name }}
+                    <button ng-click="ShowItem.removeItem($index)">Remove Item</button>
+                    <br>
+                </li>
+            </ol>
+        </div>
+    
+    </body> -->
+
+
+    <!-- <body ng-app="CustomSevicesFactory">
+        <div ng-controller="AddItemController1 as list1">
+            <h2>Shopping List 1 with Unlimited No.of items</h2>
+            <input type="text" placeholder="Name" ng-model="list1.itemName">
+            <input type="text" placeholder="Quantity" ng-model="list1.itemQuantity">
+            <button ng-click="list1.addItem()">Add Item</button>
+            <ol>
+                <li ng-repeat="item in list1.list">
+                    {{ item.quantity }} of {{ item.name }}
+                    <button ng-click="list1.removeItem($index)">Remove Item</button>
+                    <br>
+                </li>
+            </ol>
+            <div> Error: {{ list1.errorMessage }} </div>
+        </div>
+
+        <div ng-controller="AddItemController2 as list2">
+            <h2>Shopping List 2 with Max of 2 items</h2>
+            <input type="text" placeholder="Name" ng-model="list2.itemName">
+            <input type="text" placeholder="Quantity" ng-model="list2.itemQuantity">
+            <button ng-click="list2.addItem()">Add Item</button>
+            <ol>
+                <li ng-repeat="item in list2.list">
+                    {{ item.quantity }} of {{ item.name }}
+                    <button ng-click="list2.removeItem($index)">Remove Item</button>
+                    <br>
+                </li>
+            </ol>
+            <div> Error: {{ list2.errorMessage }} </div>
+        </div>
+        
+    </body> -->
+
+    <body ng-app="CustomServicesProvider">
+        <li>Step 1: Define Provider Function.</li>
+        <li>Step 2: Register Provider Function with the Module.</li>
+        <li>Step 3: Inject it.</li>
+        <li>Step 4a(optional): Register Config function.</li>
+        <li>Step 4b: Inject Provider into Config function.</li>
+        <br>
+        <div ng-controller="ShoppingListController as list1">
+            <input type="text" ng-model="list1.itemName" placeholder="Name">
+            <input type="text" ng-model="list1.itemQuantity" placeholder="Quantity">
+            <button ng-click="list1.addItem();">Add Item</button>
+            <ol>
+                <li ng-repeat="item in list1.showList">{{item.quantity}} of {{item.name}}
+                <button ng-click="list1.removeItem($index);">Remove Item</button>
+            </li>
+            </ol>
+            <h4>
+                <li>ng-if takes a condition as its value, if it is true,
+                it will show entire div else it will be removed from the DOM tree.</li>
+                <li>ng-show does the same thing, except it will not remove from the DOM tree
+                    it will add extra class, ng-hide and it will just hide the div</li>
+                <li>ng-hide is opposite of ng-show</li>
+            </h4>
+            <div ng-if="list1.errorMessage">
+                Error: {{list1.errorMessage}}
+            </div>
+        </div>
+        
+    </body>
+    <script src="app1.js"></script>
+</html>
