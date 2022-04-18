@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AngularJS</title>
 </head>
-<body ng-app="ShoppingListPromiseApp">
+<!-- <body ng-app="ShoppingListPromiseApp">
     <h1>Promises and $q Service</h1>
     <img src="$qNotes.png" alt="syntax" height="400" width="600">
     <li>$q.all([...]) resolve multiple promises asynchronously. (parallely)</li>
@@ -25,6 +25,21 @@
         </ol>
     </div>
     
-</body>
+</body> -->
+
+    <body ng-app="MenuCategoriesApp">
+        <h1>$http Service</h1>
+        <div ng-controller="MenuCategoriesController as menu">
+            <ol>
+                <li ng-repeat="category in menu.categories;">
+                    <a href="" ng-click="menu.logMenuForCategory(category.short_name);">({{category.short_name}})</a>
+                    
+                    {{category.name}}
+                </li>
+            </ol>
+        </div>
+
+        
+    </body>
 <script src="app.js"></script>
 </html>
