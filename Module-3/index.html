@@ -7,91 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AngularJS</title>
 </head>
-<!-- <body ng-app="ShoppingListPromiseApp">
-    <h1>Promises and $q Service</h1>
-    <img src="$qNotes.png" alt="syntax" height="400" width="600">
-    <li>$q.all([...]) resolve multiple promises asynchronously. (parallely)</li>
-    <div ng-controller="ShoppingListController as List">
-        <h2>Shopping List</h2>
-        <input type="text" ng-model="List.itemName" placeholder="Name">
-        <input type="text" ng-model="List.itemQuantity" placeholder="Quantity">
-        units
-        <button ng-click="List.addItem();">Add Item</button>
-        <ol>
-            <li ng-repeat="item in List.items">
-                {{item.quantity}} units of {{item.name}}
-                <button ng-click="List.removeItem($index);">Remove Item</button>
-            </li>
-        </ol>
+    <body ng-app="DirectivesController">
+    <div ng-controller="ShoppingListController1 as list1">
+        <input type="text" placeholder="Name" ng-model="list1.itemName">
+        <input type="text" placeholder="Quantity" ng-model="list1.itemQuantity">
+        <button ng-click="list1.addItems()">Add Item</button>
+
+        <list-item items="list1.getItems" title="{{list1.title}}" remove="list1.removeItem(index)"></list-item>
+
     </div>
-    
-</body> -->
-
-    <!-- <body ng-app="MenuCategoriesApp">
-        <h1>$http Service</h1>
-        <div ng-controller="MenuCategoriesController as menu">
-            <ol>
-                <li ng-repeat="category in menu.categories;">
-                    <a href="" ng-click="menu.logMenuForCategory(category.short_name);">({{category.short_name}})</a>
-                    
-                    {{category.name}}
-                </li>
-            </ol>
-        </div>        
-    </body> -->
-
-    <!-- <body ng-app="DynamicDirectivesApp">
-        <div ng-controller="AddItemController1 as list">
-            <h1>Template Expanding Directive</h1>
-            <h3>
-                <li>module.directive('name',function(){return DDO;})</li>
-                <li>restrict property.</li>
-            </h3>
-            <h4>Shopping List 1 with Unlimited No.of items</h4>
-            <input type="text" placeholder="Name" ng-model="list.itemName">
-            <input type="text" placeholder="Quantity" ng-model="list.itemQuantity">
-            <button ng-click="list.addItem()">Add Item</button>
-            <ol>
-                <list-item ng-repeat="item in list.items"></list-item>
-            </ol>
-            <div ng-if="list.errorMessage"> Error: {{ list.errorMessage }} </div>
-        </div>
-
-        <div ng-controller="AddItemController2 as list">
-            <h4>Shopping List 2 with Max of 2 items</h4>
-            <input type="text" placeholder="Name" ng-model="list.itemName">
-            <input type="text" placeholder="Quantity" ng-model="list.itemQuantity">
-            <button ng-click="list.addItem()">Add Item</button>
-            <ol>
-                <li ng-repeat="item in list.items">
-                    <list-item-description></list-item-description>
-                    <button ng-click="list.removeItem($index)">Remove Item</button>
-                    <br>
-                </li>
-            </ol>
-            <div ng-if="list.errorMessage"> Error: {{ list.errorMessage }} </div>
-        </div>
+    <div ng-controller="ShoppingListController2 as list2">
+        <input type="text" ng-model="list2.itemName" placeholder="Name">
+        <input type="text" ng-model="list2.itemQuantity" placeholder="Quantity">
+        <button ng-click="list2.addItems();">Add Item</button>
         
-    </body> -->
-    <body ng-app="DirectivesIsolateScope">
-        <div ng-controller="ShoppingListController1 as list1">
-            <input type="text" placeholder="Name" ng-model="list1.itemName">
-            <input type="text" placeholder="Quantity" ng-model="list1.itemQuantity">
-            <button ng-click="list1.addItems()">Add Item</button>
+        <list-item items="list2.getItems" title="{{ list2.title }}" remove="list2.removeItem(index)"></list-item>
 
-            <list-item my-list="list1" title="{{list1.title}}"></list-item>
-
-            <div ng-if="list1.ErrorMessage">Error: {{list1.ErrorMessage}}</div>
-        </div>
-        <div ng-controller="ShoppingListController2 as list2">
-            <input type="text" ng-model="list2.itemName" placeholder="Name">
-            <input type="text" ng-model="list2.itemQuantity" placeholder="Quantity">
-            <button ng-click="list2.addItems();">Add Item</button>
-            
-            <list-item my-list="list2" title="{{ list2.title }}"></list-item>
-
-            <div ng-if="list2.ErrorMessage">Error: {{list2.Er"rorMessage}}</div>
-        </div>
-    </body>
+    </div>
 <script src="app.js"></script>
 </html>
