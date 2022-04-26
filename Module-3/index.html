@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../Angular-files/angular.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS</title>
+</head>
+    <h4>
+    <li>Data Manipulation like deleteing the data using remove button should not be done in directives controller,
+        should be done in parent controller's context. 
+    </li> </h4>
+    <body ng-app="DirectivesController">
+    <div ng-controller="ShoppingListController1 as list1">
+        <input type="text" placeholder="Name" ng-model="list1.itemName">
+        <input type="text" placeholder="Quantity" ng-model="list1.itemQuantity">
+        <button ng-click="list1.addItems()">Add Item</button>
+    
+        <list-item items="list1.getItems" title="{{list1.title}}" remove="list1.removeItem(index)">
+            <div>{{list1.warning}}</div>
+        </list-item>
+
+    </div>
+    </body>
+<script src="app.js"></script>
+</html>

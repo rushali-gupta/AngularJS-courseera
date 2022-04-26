@@ -1,0 +1,9 @@
+<h4>{{list.title}}</h4>
+<ol>
+    <li ng-repeat="item in list.items">
+        {{ item.quantity}} of {{item.name}}
+        <button ng-click="list.remove({index: $index});">Remove Item</button>
+        <br>
+    </li>
+</ol>
+<div class="error" ng-transclude></div>
