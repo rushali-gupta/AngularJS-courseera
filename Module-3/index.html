@@ -7,22 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AngularJS</title>
 </head>
+    <h4>
+    <li>Data Manipulation like deleteing the data using remove button should not be done in directives controller,
+        should be done in parent controller's context. 
+    </li> </h4>
     <body ng-app="DirectivesController">
     <div ng-controller="ShoppingListController1 as list1">
         <input type="text" placeholder="Name" ng-model="list1.itemName">
         <input type="text" placeholder="Quantity" ng-model="list1.itemQuantity">
         <button ng-click="list1.addItems()">Add Item</button>
-
-        <list-item items="list1.getItems" title="{{list1.title}}" remove="list1.removeItem(index)"></list-item>
-
-    </div>
-    <div ng-controller="ShoppingListController2 as list2">
-        <input type="text" ng-model="list2.itemName" placeholder="Name">
-        <input type="text" ng-model="list2.itemQuantity" placeholder="Quantity">
-        <button ng-click="list2.addItems();">Add Item</button>
-        
-        <list-item items="list2.getItems" title="{{ list2.title }}" remove="list2.removeItem(index)"></list-item>
+    
+        <list-item items="list1.getItems" title="{{list1.title}}" remove="list1.removeItem(index)">
+            <div>{{list1.warning}}</div>
+        </list-item>
 
     </div>
+    </body>
 <script src="app.js"></script>
 </html>
